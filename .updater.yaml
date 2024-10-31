@@ -6,7 +6,7 @@ versions:
     templateData:
       PHP:
         Major: 8
-        Minor: 4
+        Minor: 3
       Debian: bookworm
   - major: 12
     constraint: ~12.4.0
