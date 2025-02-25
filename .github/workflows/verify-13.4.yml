@@ -1,14 +1,14 @@
-name: Build and test TYPO3 13.1 image
+name: Build and test TYPO3 13.4 image
 
 on:
   push:
     paths:
-      - '13.1/Dockerfile'
-      - '13.1/docker-compose.yml'
+      - '13.4/Dockerfile'
+      - '13.4/docker-compose.yml'
   pull_request:
     paths:
-      - '13.1/Dockerfile'
-      - '13.1/docker-compose.yml'
+      - '13.4/Dockerfile'
+      - '13.4/docker-compose.yml'
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
 
       - name: Build and start image
         run: |
-          cd 13.1
+          cd 13.4
           docker-compose build
           docker-compose up -d
 
