@@ -30,13 +30,38 @@ This container does not ship a database management system; which means you'll ha
         $ docker run -d --name typo3-web \
             --link typo3-db:db \
             -p 80:80 \
-            martinhelmich/typo3:11
+            martinhelmich/typo3:13
 
 3. After that, simply open `http://localhost/` in your browser to start the TYPO3 install tool. **Note**: If you're using Docker Machine to run Docker on Windows or MacOS, you'll need the Docker VM's IP instead (which you can find out using the `docker-machine ip default` command).
 
 4. Complete the install tool. When prompted for database credentials, use the environment variables that you've passed to the database container in step 1. If you've linked the containers using the `--link` flag as shown in step 2, use `db` as database host name.
 
  ![](doc/database-setup.png)
+ 
+Volumes to be Mounted
+~~~~~~~~~~~~~~~~~~~~~
+
+The Docker images expose the following volumes, which **should** be mounted to ensure proper functionality and data persistence:
+
+- `/var/www/html/fileadmin` — Contains files and images uploaded by editors.
+- `/var/www/html/typo3conf` — Contains uploaded extensions, configuration, and language files.
+- `/var/www/html/typo3temp` — Contains temporary files such as logs that may be useful for debugging.
+- `/var/www/html/uploads` — Deprecated since TYPO3 6.2 and unused after TYPO3 10.0. Can be ignored for newer installations.
+
+If you are using the supplied `docker-compose.yml` file, these volumes are mounted automatically.
+
+If you are using a custom configuration strategy, you must ensure these volumes are mounted manually.
+
+Exposed Ports and Reverse Proxies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Docker image exposes **port 80**. If you are using the provided `docker-compose.yml`, this is automatically mapped to port 80 on your host system, allowing you to access the site at [http://localhost](http://localhost).
+
+If you are using a different setup, you may need to manually map port 80 to a suitable host port.
+
+If you plan to use HTTPS/TLS, you must additionally configure your reverse proxy. For more details, refer to the TYPO3 documentation:  
+[Reverse Proxy Container Configuration](https://docs.typo3.org/permalink/t3coreapi:reverse-proxy-container)
+
 
 Special use cases
 -----------------
@@ -58,8 +83,12 @@ Available tags
 
 This repository offers the following image tags:
 
-- `latest` maps to the latest available LTS version (currently, latest `12.4.*`)
+- `latest` maps to the latest available LTS version (currently, latest `13.4.*`)
+- `13.4` and `13` for the latest available version from the `13.*` respectively `13.4.*` branch.
 - `12.4` and `12` for the latest available version from the `12.*` respectively `12.4.*` branch.
+
+The following tags are still available, but not updated any longer:
+
 - `11.5` and `11` for the latest available version from the `11.*` respectively `11.5.*` branch.
 - `10.4` and `10` for the latest available version from the `10.*` respectively `10.4.*` branch.
 - `9.5` and `9` for the latest available version from the `9.*` respectively `9.5.*` branch.
