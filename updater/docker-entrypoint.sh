@@ -24,6 +24,7 @@ if [ -n "$TYPO3_SETUP_ADMIN_PASSWORD" ] && [ ! -f "$SETTINGS_FILE" ]; then
 
     if [ "$retries" -lt "$MAX_RETRIES" ]; then
         echo "TYPO3 auto-setup: database is ready, running setup..."
+        # https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/CommandControllers/ListCommands.html#console-command-setup
         runuser -u www-data -- "$TYPO3_CLI" setup --force --no-interaction --server-type=apache
         rm -f "$FIRST_INSTALL_FILE"
         echo "TYPO3 auto-setup: complete."
