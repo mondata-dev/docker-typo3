@@ -43,7 +43,7 @@ versions:
       PHP:
         Major: 7
         Minor: 4
-      Debian: buster
+      Debian: bullseye
   - major: 9
     constraint: ^9.5
     destination: "9.5"
@@ -52,7 +52,7 @@ versions:
       PHP:
         Major: 7
         Minor: 4
-      Debian: buster
+      Debian: bullseye
   - major: 8
     constraint: ^8.7
     destination: "8.7"
@@ -61,4 +61,4 @@ versions:
       PHP:
         Major: 7
         Minor: 4
-      Debian: buster
+      Debian: bullseye
