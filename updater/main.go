@@ -13,7 +13,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const Owner = "M3psipax"
+const Owner = "mondata-dev"
 const Repo = "docker-typo3"
 
 var configFile string
