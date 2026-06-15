@@ -13,7 +13,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const Owner = "martin-helmich"
+const Owner = "M3psipax"
 const Repo = "docker-typo3"
 
 var configFile string
