@@ -15,6 +15,8 @@ import (
 
 const Owner = "mondata-dev"
 const Repo = "docker-typo3"
+const CommitterName = "TYPO3 Docker Update Bot"
+const CommitterEmail = "bot@mondata.de"
 
 var configFile string
 var noPR bool

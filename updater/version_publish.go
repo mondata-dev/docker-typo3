@@ -11,6 +11,15 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// commitIdentity is used for both the author and the committer of every commit
+// this tool creates via the GitHub API.
+func commitIdentity() *github.CommitAuthor {
+	return &github.CommitAuthor{
+		Name:  strptr(CommitterName),
+		Email: strptr(CommitterEmail),
+	}
+}
+
 func pushToBranch(ctx context.Context, l logrus.FieldLogger, repo *git.Repository, client *github.Client, name string, branch string, msg string) error {
 	l = l.WithField("file.name", name)
 	l.Debug("creating commit for modified file")
@@ -53,17 +62,11 @@ func pushToBranch(ctx context.Context, l logrus.FieldLogger, repo *git.Repositor
 			Repo,
 			name,
 			&github.RepositoryContentFileOptions{
-				Message: &msg,
-				Content: contents,
-				Branch:  &branch,
-				Author: &github.CommitAuthor{
-					Name:  strptr("TYPO3 Docker Update Bot"),
-					Email: strptr("martin@helmich.me"),
-				},
-				Committer: &github.CommitAuthor{
-					Name:  strptr("TYPO3 Docker Update Bot"),
-					Email: strptr("martin@helmich.me"),
-				},
+				Message:   &msg,
+				Content:   contents,
+				Branch:    &branch,
+				Author:    commitIdentity(),
+				Committer: commitIdentity(),
 			},
 		)
 
@@ -88,18 +91,12 @@ func pushToBranch(ctx context.Context, l logrus.FieldLogger, repo *git.Repositor
 		Repo,
 		name,
 		&github.RepositoryContentFileOptions{
-			Message: &msg,
-			SHA:     fc.SHA,
-			Content: contents,
-			Branch:  &branch,
-			Author: &github.CommitAuthor{
-				Name:  strptr("TYPO3 Docker Update Bot"),
-				Email: strptr("martin@helmich.me"),
-			},
-			Committer: &github.CommitAuthor{
-				Name:  strptr("TYPO3 Docker Update Bot"),
-				Email: strptr("martin@helmich.me"),
-			},
+			Message:   &msg,
+			SHA:       fc.SHA,
+			Content:   contents,
+			Branch:    &branch,
+			Author:    commitIdentity(),
+			Committer: commitIdentity(),
 		},
 	)
 
